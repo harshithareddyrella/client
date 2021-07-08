@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import VideoPlayer from './components/VideoPlayer';
 import Notifications from './components/Notifications';
 import Options from './components/Options';
+import ChatBox from './components/ChatBox';
 import { ContextProvider } from './SocketContext';
 
 const useStyles = makeStyles((theme)=>({
@@ -44,6 +45,7 @@ const Meeting = () =>{
                 <Typography variant="h2" align="center">Video Chat</Typography>
             </AppBar>
             <VideoPlayer/>
+            <ChatBox/>
             <Options>
                 <Notifications/>
            </Options>
