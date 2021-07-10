@@ -49,7 +49,7 @@ const Options = ({children}) => {
       if(isSignedin===true){
         setname(Name);
       }
-    }, [isSignedin]);
+    }, [isSignedin,Name,setname]);
 
     return ( 
         <Container className={classes.container}>
