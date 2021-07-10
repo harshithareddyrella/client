@@ -7,14 +7,15 @@ const SocketContext = createContext();
 // const socket = io('http://localhost:8000');
 const socket = io('https://engage-videochat-app.herokuapp.com/');
 
-
-const ContextProvider = ({children}) =>{
+const ContextProvider = ({children}) =>{   
     const [stream,setStream] = useState();
     const [me,setMe] = useState('');
     const [call,setCall] = useState({});
     const [callAccepted,setCallAccepted]=useState(false);
     const [callEnded,setCallEnded] = useState(false);
-    const [name,setName] = useState('');
+    const [name,setname] = useState('');
+    const [isAudio,setIsAudio] = useState(true);
+    const [isVideo,setIsVideo] = useState(true);
 
     const myVideo = useRef();
     const userVideo = useRef();
@@ -40,6 +41,7 @@ const ContextProvider = ({children}) =>{
         setCallAccepted(true);
         const peer = new Peer({initiator:false,trickle:false,stream});
         peer.on('signal',(data)=>{
+            // console.log(data);
             socket.emit('answerCall',{signal:data,to:call.from});
         });
         peer.on('stream',(currentStream)=>{
@@ -52,10 +54,10 @@ const ContextProvider = ({children}) =>{
 
     const callUser =(id) =>{
         // setCallAccepted(true);
-        console.log(id);
+        // console.log(id);
         const peer = new Peer({initiator:true,trickle:false,stream});
         peer.on('signal',(data)=>{
-            console.log("ho");
+            // console.log(data);
             socket.emit('callUser',{userToCall:id, signalData:data,from:me,name});
         });
         peer.on('stream',(currentStream)=>{
@@ -63,7 +65,7 @@ const ContextProvider = ({children}) =>{
         });
 
         socket.on('callAccepted',(signal)=>{
-            console.log("hi");
+            // console.log("hi");
             setCallAccepted(true);
 
             peer.signal(signal);
@@ -79,6 +81,20 @@ const ContextProvider = ({children}) =>{
         window.location.reload();
 
     }
+    const muteAudio = () =>{
+        stream.getAudioTracks()[0].enabled = !isAudio;
+        // console.log(isAudio);
+        setIsAudio(!isAudio);
+        
+
+    }
+    const muteVideo = () =>{
+        stream.getVideoTracks()[0].enabled = !isVideo;
+        // console.log(isVideo);
+        setIsVideo(!isVideo);
+        // console.log(isVideo);
+        
+    }
     return(
         <SocketContext.Provider value={{
             call,
@@ -87,12 +103,16 @@ const ContextProvider = ({children}) =>{
             userVideo,
             stream,
             name,
-            setName,
+            setname,
             callEnded,
             me,
             callUser,
             leaveCall,
             answerCall,
+            muteAudio,
+            muteVideo,
+            isAudio,
+            isVideo,
         }}
         >
             {children}

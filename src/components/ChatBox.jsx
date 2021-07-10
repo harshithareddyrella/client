@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Container, makeStyles, Paper, Grid, Typography, TextField, Button } from '@material-ui/core';
+import { Container, makeStyles, Paper, Grid, TextField} from '@material-ui/core';
 import { SocketContext } from '../SocketContext';
 import cred from '../cred';
 
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ChatBox = () => {
     const [message, setMessage] = useState(0);
-    const {me,callAccepted,name,setName,callEnded,leaveCall,callUser} = useContext(SocketContext);
+    const {name} = useContext(SocketContext);
     // // console.log(call.isReceivingCall);
     const classes = useStyles();
     const [Messages,setMessages] = useState([]);
@@ -49,31 +49,33 @@ const ChatBox = () => {
             for(let id in Messages_){
                 messages.push(Messages_[id]);
             }
-            console.log(messages);
+            // console.log(messages);
             setMessages(messages);
         });
 
     },[]);
 
     const setMsg = (msg) => {
-        console.log(msg);
+        // console.log(msg);
         setMessage(msg);
     }
 
-    const sendMsg = () => {
+    const sendMsg = (e) => {
+        e.preventDefault();
         const date = new Date();
         const [hours, minutes] = [date.getHours(), date.getMinutes()];
-        console.log(name, message, hours, minutes);
+        // console.log(name, message, hours, minutes);
         const chat = {name, message, hours, minutes};
         let messageRef = cred.database().ref('messages');
         messageRef.push(chat);
+        document.getElementById("Messageform").reset();
     }
     return (
         <div>
             {/* {callAccepted && !callEnded && ( */}
         <Container className={classes.container}>
             <Paper elevation={10} className={classes.paper}>
-                <form className={classes.root} noValidate autoComplete="off">
+                <form className={classes.root} id= "Messageform" noValidate onSubmit={sendMsg} autoComplete="off">
                 <ul>
                     {Messages.map(function(message) {
                     return (
@@ -107,9 +109,9 @@ const ChatBox = () => {
                                 Send
                             </Button>
                             )} */}
-                            <Button variant="contained" color="primary" fullWidth onClick={() => sendMsg()} className={classes.margin}>
+                            <button variant="contained" color="primary" fullWidth className={classes.margin}>
                                 Send
-                            </Button>
+                            </button>
                         </Grid>
                         
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Typography, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Call from './Call';
 import VideoPlayer from './components/VideoPlayer';
-import Notifications from './components/Notifications';
-import Options from './components/Options';
+
 import ChatBox from './components/ChatBox';
 import { ContextProvider } from './SocketContext';
+
 
 const useStyles = makeStyles((theme)=>({
     appBar: {
@@ -46,11 +46,7 @@ const Meeting = () =>{
             </AppBar>
             <VideoPlayer/>
             <ChatBox/>
-            <Options>
-                <Notifications/>
-           </Options>
-           
-        
+            <Call/>
         </div>
       </ContextProvider>
         
