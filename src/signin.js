@@ -5,8 +5,13 @@ import { srcContext } from "./srcContext";
 
 const Signin = (props) => {  
     const [Users,setUsers] = useState('');
-    const {isSignedin,setIsSignedin,setIsSignedup,setName} = useContext(srcContext); 
+    const {isSignedin,setIsSignedin,setIsSignedup,setName,setIsHome,setIsSignin,setIsSignup} = useContext(srcContext); 
     var found = false;
+    useEffect(()=>{
+        setIsHome(false);
+        setIsSignin(true);
+        setIsSignup(false);
+    });
     useEffect(()=>{
         // console.log(Name);
         if(isSignedin===true){
@@ -83,6 +88,10 @@ const Signin = (props) => {
             {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
             <button>Sign in</button>
         </form>
+        <br/>
+        <h4 className="change">Not a user? 
+            <a href="/signup">Sign up</a>
+        </h4>
     </div>        
      );
 }

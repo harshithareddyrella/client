@@ -8,7 +8,13 @@ const Signup = (props) => {
     const [error,setError] = useState('');
     let valid = true;
     const [Users,setUsers] = useState('');
-    const {setIsSignedup,setIsSignedin,Name,setName} = useContext(srcContext);
+    const {setIsSignedup,setIsSignedin,Name,setName,setIsHome,setIsSignin,setIsSignup} = useContext(srcContext);
+
+    useEffect(()=>{
+        setIsHome(false);
+        setIsSignin(false);
+        setIsSignup(true);
+    });
     
     useEffect(()=>{
         const userRef = cred.database().ref('users');
@@ -73,8 +79,12 @@ const Signup = (props) => {
                     onChange = {(e)=>setPassword(e.target.value)}
                 />
                 {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-                <button>Sign in</button>
+                <button>Sign up</button>
             </form>
+            <br/>
+            <h4 className="change">Already a user?  
+                <a href="/signin">Sign in</a>
+            </h4>
         </div>
      );
 }

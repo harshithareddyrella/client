@@ -1,23 +1,30 @@
 // import firebase from "firebase";
 // import { PinDropSharp } from '@material-ui/icons';
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
 import {srcContext} from './srcContext';
 
 const Home = (props) => {
     // const firebaseApp = firebase.apps[0];
-    const {Name} = useContext(srcContext);
+    const {Name,setIsHome,setIsSignin,setIsSignup} = useContext(srcContext);
+    useEffect(()=>{
+        setIsHome(true);
+        setIsSignin(false);
+        setIsSignup(false);
+    });
     const startMeeting=(()=>{
         props.history.push("/Meeting");
     });
     return ( 
+
         <div className="home">
-            <h1>Hi {Name}, Welcome to MS teams Home Page</h1>
-            <h2>About MS Teams</h2>
-            <p>Connect with anyone with video and audio. 
+            <h1>Hi {Name}, Welcome to Speak-a-boo Home Page</h1>
+            {/* <h2>About Speak-a-boo</h2> */}
+            <br/>
+            <h4>Connect with anyONE of your friends with video and audio. 
                 <br />
-                Available for everyone and bringing you all closer:D
-            </p>
+                Available for everyone and bringing you both closer:D
+            </h4>
             <br />
             <button href='/Meeting' style={{
                     color:"white",

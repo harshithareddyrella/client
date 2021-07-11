@@ -15,7 +15,6 @@ body {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
   color: #fff;
-  margin: 0;
   padding: 0;
 }
 /* navbar style */
@@ -23,7 +22,7 @@ body {
   padding: 20px;
   display: flex;
   align-items: center;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
 }
@@ -41,8 +40,21 @@ body {
 .navbar a:hover {
   color: #f1356d;
 }
+.active{
+  color:"white";
+  background-color:#f1356d;
+  border-radius:8px;
+}
+.change a:hover{
+  color: #f1356d;
+}
+/* .navbar a:visited{
+    color:"white";
+    background-color:#f1356d;
+    border-radius:8px;
+} */
 .content {
-  max-width: 600px;
+  max-width: 800px;
   margin: 40px auto;
   padding: 20px;
 }
@@ -70,7 +82,7 @@ body {
   box-sizing: border-box;
   display: block;
 }
-.signup button ,.signin button{
+.signup button ,.signin button,.chatbox button{
   background: #f1356d;
   color: #fff;
   border: 0;

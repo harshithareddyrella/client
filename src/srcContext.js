@@ -6,6 +6,9 @@ const SrcContextProvider = ({children}) =>{
     const [isSignedin,setIsSignedin] = useState(false);
     const [isSignedup,setIsSignedup] = useState(false);
     const [Name,setName] = useState('');
+    const [isHome,setIsHome] = useState(true);
+    const [isSignin,setIsSignin] = useState(false);
+    const [isSignup,setIsSignup] = useState(false);
     // const {name,setname} = useContext(SocketContext);
 
     return(
@@ -15,7 +18,9 @@ const SrcContextProvider = ({children}) =>{
         setIsSignedup,
         Name,
         setName,
-        // name,
+        isHome,setIsHome,
+        isSignin,setIsSignin,
+        isSignup,setIsSignup,
     }}>
             {children}
         </srcContext.Provider>

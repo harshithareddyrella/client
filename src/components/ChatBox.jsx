@@ -40,20 +40,29 @@ const ChatBox = () => {
     // // console.log(call.isReceivingCall);
     const classes = useStyles();
     const [Messages,setMessages] = useState([]);
+    const {callAccepted,callEnded,idToCall} = useContext(SocketContext);
 
     useEffect(()=>{
-        const messageRef = cred.database().ref('messages');
-        messageRef.on('value',(snapshot)=>{
-            const Messages_ = snapshot.val();
-            let messages = [];
-            for(let id in Messages_){
-                messages.push(Messages_[id]);
-            }
-            // console.log(messages);
-            setMessages(messages);
-        });
+        if(idToCall !== ""){
+            const messagesRef = cred.database().ref('chats').child(idToCall).child("messages");
+            messagesRef.on('value',(snapshot)=>{
+                const Messages_ = snapshot.val();
+                const messages_ = [];
+                // var obj = JSON.parse(Messages_);
+                // console.log(obj);
+                // var values = Object.keys(obj).map(function (key) { return obj[key]; });
+                // console.log(values);
+                for(let idx in Messages_){
+                    messages_.push(Messages_[idx]);
+                }
+                console.log(messages_);
+                if(Messages_ !== null){
+                    setMessages(messages_);
+                }                
+            });
 
-    },[]);
+        }
+    },[idToCall]);
 
     const setMsg = (msg) => {
         // console.log(msg);
@@ -66,20 +75,20 @@ const ChatBox = () => {
         const [hours, minutes] = [date.getHours(), date.getMinutes()];
         // console.log(name, message, hours, minutes);
         const chat = {name, message, hours, minutes};
-        let messageRef = cred.database().ref('messages');
-        messageRef.push(chat);
+        const messagesRef = cred.database().ref('chats').child(idToCall).child("messages");
+        messagesRef.push(chat);
         document.getElementById("Messageform").reset();
     }
     return (
-        <div>
-            {/* {callAccepted && !callEnded && ( */}
+        <div className="chatbox">
+            {callAccepted && !callEnded && (
         <Container className={classes.container}>
             <Paper elevation={10} className={classes.paper}>
                 <form className={classes.root} id= "Messageform" noValidate onSubmit={sendMsg} autoComplete="off">
                 <ul>
                     {Messages.map(function(message) {
                     return (
-                        <li style={{ color: 'black' }} key={message}>{message.name} {message.message} {message.hours < 10 ? 0 : ""}{message.hours}:{message.minutes}</li>
+                        <li style={{ color: 'black' }} key={message}>{message.name} {message.message} {message.hours < 10 ? 0 : ""}{message.hours}:{message.minutes < 10 ? 0 : ""}{message.minutes}</li>
                     );
                     })}
                 </ul>
@@ -121,7 +130,7 @@ const ChatBox = () => {
            
            
         </Container>
-            {/* )} */}
+             )}
             </div>
     
     );

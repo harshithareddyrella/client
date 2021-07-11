@@ -1,6 +1,7 @@
 import React, {createContext, useState, useRef, useEffect} from 'react';
 import {io} from 'socket.io-client';
 import Peer from 'simple-peer';
+import cred from './cred';
 
 const SocketContext = createContext();
 
@@ -16,6 +17,7 @@ const ContextProvider = ({children}) =>{
     const [name,setname] = useState('');
     const [isAudio,setIsAudio] = useState(true);
     const [isVideo,setIsVideo] = useState(true);
+    const [idToCall,setIdToCall]=useState('');
 
     const myVideo = useRef();
     const userVideo = useRef();
@@ -37,8 +39,13 @@ const ContextProvider = ({children}) =>{
         });
 
     },[]);
+
     const answerCall=()=>{
         setCallAccepted(true);
+        const chatsRef = cred.database().ref('chats');
+        const chat = {messages:[]};
+        chatsRef.child(idToCall).set(chat);
+
         const peer = new Peer({initiator:false,trickle:false,stream});
         peer.on('signal',(data)=>{
             // console.log(data);
@@ -113,6 +120,8 @@ const ContextProvider = ({children}) =>{
             muteVideo,
             isAudio,
             isVideo,
+            idToCall,
+            setIdToCall,
         }}
         >
             {children}

@@ -1,4 +1,4 @@
-import React,{useState,useContext,useEffect} from 'react'
+import React,{useContext,useEffect} from 'react'
 import { Button,TextField,Grid,Typography, Container, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
@@ -38,10 +38,9 @@ const useStyles = makeStyles((theme) => ({
    }));
 
 const Options = ({children}) => {
-    const {me,callAccepted,name,setname,callEnded,leaveCall,callUser,muteAudio,muteVideo,isAudio,isVideo} = useContext(SocketContext);
+    const {me,callAccepted,name,setname,callEnded,leaveCall,callUser,muteAudio,muteVideo,isAudio,isVideo,idToCall,setIdToCall} = useContext(SocketContext);
     const {Name,isSignedin} = useContext(srcContext);
     // console.log(Name);
-    const [idToCall,setIdToCall]=useState('');
     const classes = useStyles();
     useEffect(() => {
       // console.log(isSignedin);
