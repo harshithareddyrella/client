@@ -1,25 +1,30 @@
+// Importing essential libraries
 import {useState,useEffect,useContext} from "react";
 import {withRouter} from 'react-router-dom';
 import cred from './cred';
 import { srcContext } from "./srcContext";
 
-const Signin = (props) => {  
+const Signin = (props) => { 
+    // using variables from srcContext and declaring 
     const [Users,setUsers] = useState('');
     const {isSignedin,setIsSignedin,setIsSignedup,setName,setIsHome,setIsSignin,setIsSignup} = useContext(srcContext); 
     var found = false;
+
+    // useEffect to set the position of the user
     useEffect(()=>{
         setIsHome(false);
         setIsSignin(true);
         setIsSignup(false);
     });
+    //  useEffect to redirect after signing in
     useEffect(()=>{
-        // console.log(Name);
         if(isSignedin===true){
             props.history.push("/");   
              
         }    
     },[isSignedin,props]);
 
+    // useEffect to get the users data and str=oring locally from firebase database
     useEffect(()=>{     
         const userRef = cred.database().ref('users');
         userRef.on('value',(snapshot)=>{
@@ -28,24 +33,26 @@ const Signin = (props) => {
             for(let id in Users_){
                 users.push(Users_[id]);
             }
-            // console.log(users);
             setUsers(users);
             
         });
 
     },[]);
     
+    //  variables to store user data
     const [Username,setUsername] = useState('');
     const [Password,setPassword] = useState('');
     const [error,setError] = useState('');
 
+    // function to be executed after signin
     const handleSignin = (e) => {
         e.preventDefault();
+        // checking if the data provided from the user is correct
         for (let index = 0; index < Users.length; index++) {
             const element = Users[index];
             if(element.Username===Username){
                 if(element.Password===Password){
-                    
+                    // if the provided data is correct, user getes signed in 
                     setError("success");
                     found = true;
                     setIsSignedin(true);
@@ -60,6 +67,7 @@ const Signin = (props) => {
             }
             
         }
+        // else error message pops 
         if(found===false){
             setError("invalid");
 
@@ -68,10 +76,10 @@ const Signin = (props) => {
         
     }
     
-    return (
+    return (       
         <div className="signin">
-        
         <h2>Sign in</h2>
+        {/* //  form for the user to fill in data */}
         <form onSubmit = {handleSignin}>
             <label>Username:</label>
             <input
@@ -86,6 +94,7 @@ const Signin = (props) => {
                 onChange={(e)=>setPassword(e.target.value)}
             />
             {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
+            {/* button to signin on clicking */}
             <button>Sign in</button>
         </form>
         <br/>

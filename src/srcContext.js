@@ -1,17 +1,20 @@
+// Import essential libraries
 import React , {useState,createContext} from 'react';
-// import {SocketContext} from './SocketContext';
+
+// creating srcContext
 const srcContext = createContext();
 
 const SrcContextProvider = ({children}) =>{
+    // declaring necessary variables
     const [isSignedin,setIsSignedin] = useState(false);
     const [isSignedup,setIsSignedup] = useState(false);
     const [Name,setName] = useState('');
-    const [isHome,setIsHome] = useState(true);
+    const [isHome,setIsHome] = useState(false);
     const [isSignin,setIsSignin] = useState(false);
     const [isSignup,setIsSignup] = useState(false);
-    // const {name,setname} = useContext(SocketContext);
 
     return(
+        // variables that can be used by its children
         <srcContext.Provider value={{isSignedin,
         setIsSignedin,
         isSignedup,

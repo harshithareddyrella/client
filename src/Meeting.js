@@ -1,13 +1,14 @@
+// importing essential libraries
 import React from 'react';
 import { Typography, AppBar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import Call from './Call';
 import VideoPlayer from './components/VideoPlayer';
-
+import Options from './components/Options';
+import Notifications from './components/Notifications';
 import ChatBox from './components/ChatBox';
 import { ContextProvider } from './SocketContext';
 
-
+// Meeting styles
 const useStyles = makeStyles((theme)=>({
     appBar: {
         borderRadius: 15,
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme)=>({
 
 const Meeting = () =>{
     const classes = useStyles();
+    // calling all the components inside ContextProvider
     return(
       <ContextProvider>
           <div className={classes.wrapper}>
@@ -46,7 +48,9 @@ const Meeting = () =>{
             </AppBar>
             <VideoPlayer/>
             <ChatBox/>
-            <Call/>
+            <Options>
+                <Notifications/>
+            </Options>
         </div>
       </ContextProvider>
         

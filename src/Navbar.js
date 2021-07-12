@@ -1,11 +1,14 @@
+// Importing essential libraries
 import {useContext,useEffect} from "react";
 import { srcContext } from "./srcContext";
 
 const Navbar = (props) => {
+    // using variables from srcContext
     const {isSignedin,isSignedup, isHome, isSignin, isSignup} = useContext(srcContext);
 
+    // useEffect to add className "active" for styling 
     useEffect(()=>{
-        
+        // if the user is in home page
         if(isHome){
             document.getElementById("home").classList.add("active");
             if(!isSignedin){
@@ -13,7 +16,8 @@ const Navbar = (props) => {
                 document.getElementById("signup").classList.remove("active");
             }
         }
-        if(isSignin){
+        // if the user is in signin page
+        else if(isSignin){
             document.getElementById("home").classList.remove("active");
             if(!isSignedin){
                 document.getElementById("signin").classList.add("active");
@@ -21,17 +25,26 @@ const Navbar = (props) => {
             }
             
         }
-        if(isSignup){
+        // if the user is in signup page
+        else if(isSignup){
             document.getElementById("home").classList.remove("active");
             if(!isSignedin){
                 document.getElementById("signin").classList.remove("active");
                 document.getElementById("signup").classList.add("active");
             }
         }
+        // if the user is not in either of the pages
+        else{
+            document.getElementById("home").classList.remove("active");
+            if(!isSignedin){
+                document.getElementById("signin").classList.remove("active");
+                document.getElementById("signup").classList.remove("active");
+            }
+        }
     })
     
     return (
-         
+        //  home, signin, signup links in navigation bar
             <nav className="navbar">
                 <h1>Speak-a-boo</h1>
                 <div className="links">

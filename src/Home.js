@@ -1,42 +1,36 @@
-// import firebase from "firebase";
-// import { PinDropSharp } from '@material-ui/icons';
+// Importing essential libraries
 import {useContext, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
 import {srcContext} from './srcContext';
 
 const Home = (props) => {
-    // const firebaseApp = firebase.apps[0];
+    // using variables from srcContext
     const {Name,setIsHome,setIsSignin,setIsSignup} = useContext(srcContext);
+
+    // useEffect to set the position of the user
     useEffect(()=>{
         setIsHome(true);
         setIsSignin(false);
         setIsSignup(false);
     });
+    // function to start meeting
     const startMeeting=(()=>{
+        setIsHome(false);
         props.history.push("/Meeting");
     });
-    return ( 
 
+    return ( 
+        // text to be shown in home page
         <div className="home">
             <h1>Hi {Name}, Welcome to Speak-a-boo Home Page</h1>
-            {/* <h2>About Speak-a-boo</h2> */}
             <br/>
             <h4>Connect with anyONE of your friends with video and audio. 
                 <br />
                 Available for everyone and bringing you both closer:D
             </h4>
             <br />
-            <button href='/Meeting' style={{
-                    color:"white",
-                    fontSize:'25px',
-                    backgroundColor:'#f1356d',
-                    // borderRadius:'16px'
-                    textDecorationLine:"none"    
-                }} onClick = {startMeeting}>Start Instant call</button>
-            {/* <code>
-                <pre>{JSON.stringify(firebaseApp.options, null, 2)}</pre>
-            </code> */}
-            
+            {/* button to go to meeting page on clicking */}
+            <button onClick = {startMeeting}>Start Instant Meeting</button>            
         </div>
      );
 }

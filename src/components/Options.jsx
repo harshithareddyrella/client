@@ -1,11 +1,12 @@
-import React,{useContext,useEffect} from 'react'
+// Importing essential libraries
+import React,{useContext} from 'react'
 import { Button,TextField,Grid,Typography, Container, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import { Assignment, Phone, PhoneDisabled } from '@material-ui/icons';
-import { srcContext } from '../srcContext';
+import { Assignment, CallEnd, Mic, MicOff, Phone, Videocam, VideocamOff } from '@material-ui/icons';
 import {SocketContext} from '../SocketContext';
 
+// styles
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
@@ -38,61 +39,57 @@ const useStyles = makeStyles((theme) => ({
    }));
 
 const Options = ({children}) => {
+    // importing necessary variables from SocketContext
     const {me,callAccepted,name,setname,callEnded,leaveCall,callUser,muteAudio,muteVideo,isAudio,isVideo,idToCall,setIdToCall} = useContext(SocketContext);
-    const {Name,isSignedin} = useContext(srcContext);
-    // console.log(Name);
+    // const {Name,isSignedin} = useContext(srcContext);
     const classes = useStyles();
-    useEffect(() => {
-      // console.log(isSignedin);
-      // console.log(Name);
-      if(isSignedin===true){
-        setname(Name);
-      }
-    }, [isSignedin,Name,setname]);
 
-    return ( 
+    return (
+        // container for options box
         <Container className={classes.container}>
             <Paper elevation={10} className={classes.paper}>
+              {/* form */}
                 <form className={classes.root} noValidate autoComplete="off">
                     <Grid container className={classes.gridContainer}>
                         <Grid item xs={12} md={6} className={classes.padding}>
+                          {/* Audio controls */}
                           {isAudio ? (
-                                  <Button variant="contained" color="secondary" startIcon={<PhoneDisabled fontSize="large" />} fullWidth onClick={muteAudio} className={classes.margin}>
-                                      Mute Audio
+                                  <Button variant="contained" color="secondary" startIcon={<Mic fontSize="large" />} fullWidth onClick={muteAudio} className={classes.margin}>
+                                      
                                   </Button>
                                   ) : (
-                                  <Button variant="contained" color="primary" startIcon={<Phone fontSize="large" />} fullWidth onClick={muteAudio} className={classes.margin}>
-                                      Unmute Audio
+                                  <Button variant="contained" color="primary" startIcon={<MicOff fontSize="large" />} fullWidth onClick={muteAudio} className={classes.margin}>
+                                      
                                   </Button>
                           )}
+                          {/* Caller details */}
                             <Typography style={{color: 'black'}} gutterBottom variant="h6">Account Info</Typography>
-                            {isSignedin ?(
-                              <TextField label="Name" value={Name} fullWidth></TextField>
-                            ):(
-                              <TextField label="Name" value={name} onChange={(e)=>setname(e.target.value)} fullWidth></TextField>
-                            )}
                             
-                            {/* {console.log(me)} */}
+                            <TextField label="Name" value={name} onChange={(e)=>setname(e.target.value)} fullWidth></TextField>
+                            
+                            {/* To copy the ID genertated */}
                             <CopyToClipboard text={me} className={classes.margin}>
                                 <Button variant="contained" color="primary" fullWidth startIcon ={<Assignment fontSize="large"/>}>
-                                    Copy this id and share with friends
+                                    Click to copy meeting ID
                                 </Button>
                             </CopyToClipboard>
                         </Grid>
                         <Grid item xs={12} md={6} className={classes.padding}>
+                          {/* video controls */}
                           {isVideo ? (
-                                    <Button variant="contained" color="secondary" startIcon={<PhoneDisabled fontSize="large" />} fullWidth onClick={muteVideo} className={classes.margin}>
-                                        Turn off Video
+                                    <Button variant="contained" color="secondary" startIcon={<Videocam fontSize="large" />} fullWidth onClick={muteVideo} className={classes.margin}>
                                     </Button>
                                     ) : (
-                                    <Button variant="contained" color="primary" startIcon={<Phone fontSize="large" />} fullWidth onClick={muteVideo} className={classes.margin}>
-                                        Turn on Video
+                                    <Button variant="contained" color="primary" startIcon={<VideocamOff fontSize="large" />} fullWidth onClick={muteVideo} className={classes.margin}>
+                                        
                                     </Button>
                             )}
+                            {/* textfield to call a particular ID */}
                             <Typography style={{color: 'black'}} gutterBottom variant="h6">Make a call</Typography>
                             <TextField label="ID to call" value={idToCall} onChange={(e)=>setIdToCall(e.target.value)} fullWidth/>
+                            {/* Buttons to call or hang up */}
                             {callAccepted && !callEnded ? (
-                                <Button variant="contained" color="secondary" startIcon={<PhoneDisabled fontSize="large" />} fullWidth onClick={leaveCall} className={classes.margin}>
+                                <Button variant="contained" color="secondary" startIcon={<CallEnd fontSize="large" />} fullWidth onClick={leaveCall} className={classes.margin}>
                                     Hang Up
                                 </Button>
                                 ) : (
@@ -105,12 +102,8 @@ const Options = ({children}) => {
                     </Grid>
                 </form>
                 {children}
-            </Paper>
-           
-           
-        </Container>
-            
-        
+            </Paper>   
+        </Container>   
      );
 };
  

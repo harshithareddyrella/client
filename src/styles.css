@@ -1,8 +1,8 @@
 body {
     background:
     linear-gradient(
-      rgba(0, 0, 0, 0.3), 
-      rgba(0, 0, 0, 0.3)
+      rgba(0, 0, 0, 1), 
+      rgba(0, 0, 0, 1)
     )
     /* url(https://i.pinimg.com/originals/8f/14/57/8f14578ef69a4c53352955d1e072eda6.png); */
     /* background-repeat: no-repeat; */
@@ -37,29 +37,40 @@ body {
   text-decoration: none;
   padding: 6px;
 }
-.navbar a:hover {
-  color: #f1356d;
-}
 .active{
   color:"white";
   background-color:#f1356d;
   border-radius:8px;
 }
+.navbar a:hover {
+  color: #f7b0d7;
+  cursor: pointer;
+}
 .change a:hover{
   color: #f1356d;
+  cursor: pointer;
 }
 /* .navbar a:visited{
     color:"white";
     background-color:#f1356d;
     border-radius:8px;
 } */
-.content {
-  max-width: 800px;
+.content{
+  /* max-width: 800px; */
   margin: 40px auto;
   padding: 20px;
+  /* text-align: center; */
+  /* justify-content: center; */
+}
+.home{
+  /* max-width: 800px; */
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  /* justify-content: center; */
 }
 /* sign in and sign up style */
-.signup,.signin {
+.signup,.signin{
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
@@ -82,11 +93,23 @@ body {
   box-sizing: border-box;
   display: block;
 }
-.signup button ,.signin button,.chatbox button{
+.signup button ,.signin button,.chatbox button ,.home button{
   background: #f1356d;
   color: #fff;
   border: 0;
   padding: 8px;
   border-radius: 8px;
   cursor: pointer;
+}
+.chats{
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px 0;
+}
+.chats::after {
+  content: "";
+  clear: both;
+  display: table;
 }
