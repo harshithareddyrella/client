@@ -8,7 +8,7 @@ const SocketContext = createContext();
 
 // storing server
 // const socket = io('http://localhost:8000');
-const socket = io('https://engage-videochat-app.herokuapp.com/');
+const socket = io('https://engage-server.herokuapp.com/');
 
 const ContextProvider = ({children}) =>{ 
     // defining necessary variables  
