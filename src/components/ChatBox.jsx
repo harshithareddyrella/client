@@ -42,7 +42,7 @@ const ChatBox = () => {
     const {name} = useContext(SocketContext);
     const classes = useStyles();
     const [Messages,setMessages] = useState([]);
-    const {callAccepted,callEnded,idToCall,me} = useContext(SocketContext);
+    const {callAccepted,idToCall,me} = useContext(SocketContext);
 
     // useEffect to locally store the messages belonging to a particular ID from firebase database
     useEffect(()=>{
@@ -60,7 +60,7 @@ const ChatBox = () => {
             });
 
         }
-    },[callAccepted]);
+    },[callAccepted, idToCall, me]);
 
     // function to send a message 
     const sendMsg = (e) => {

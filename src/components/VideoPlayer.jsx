@@ -1,5 +1,5 @@
 // Importing essential libraries
-import React, { useContext,useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Grid, Typography, Paper, makeStyles } from '@material-ui/core';
 import { SocketContext } from '../SocketContext';
 
