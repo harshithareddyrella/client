@@ -4,7 +4,6 @@ import Home from './Home';
 import Meeting from './Meeting';
 import Signup from './signup';
 import Signin from './signin';
-import Team from './Team';
 import { SrcContextProvider } from './srcContext';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
@@ -28,9 +27,6 @@ function App() {
                 </Route>  
                 <Route path="/Meeting">
                     <Meeting/>   
-                </Route>
-                <Route path="/Team">
-                    <Team/>   
                 </Route>
               </Switch>
           </div>  
